@@ -13,17 +13,18 @@
 
 name: dotnetcore # workflow name
 
-on: [push] # event trigger，什么事件触发 buildjobs:
+on: [push, pull] # event trigger，什么事件触发 buildjobs:
 #  build:
 jobs:
   my_first_job:
-    name: My first job\
+    name: My first job
   runs-on: ubuntu-latest # 指定运行所需要的虚拟机环境
   steps:
     - name: Print a greeting
       env:
         PROJECT_ENV: dev
         FIRST_NAME: Mona
+        BUILD_SCRIPT:npm install && npm run deploy
       run: |
         echo $PROJECT_ENV $FIRST_NAME
   #  runs-on: ubuntu-latest # 指定运行所需要的虚拟机环境
