@@ -1,0 +1,42 @@
+# name: learn-github-actions
+# on: [push]
+# jobs:
+#   check-bats-version:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: "14"
+#       - run: npm install -g bats
+#       - run: bats -v
+
+name: dotnetcore # workflow name
+
+on: [push] # event trigger，什么事件触发 buildjobs:
+#  build:
+jobs:
+  my_first_job:
+    name: My first job\
+  runs-on: ubuntu-latest # 指定运行所需要的虚拟机环境
+  steps:
+    - name: Print a greeting
+      env:
+        PROJECT_ENV: dev
+        FIRST_NAME: Mona
+      run: |
+        echo $PROJECT_ENV $FIRST_NAME
+  #  runs-on: ubuntu-latest # 指定运行所需要的虚拟机环境
+
+  #  steps:
+  #  - uses: actions/checkout@v1 # checkout
+  #  - name: Setup .NET Core # 设置 dotnet core 环境
+  #    uses: actions/setup-dotnet@v1
+  #    with:
+  #      dotnet-version: 3.0.100
+  #  - name: dotnet info # 输出 dotnet -info，查看 dotnet 版本信息
+  #    run: dotnet --info
+  #  - name: build
+  #    run: bash build.sh # 在 bash 中运行 build 脚本
+
+# 指定运行所需要的虚拟机环境
