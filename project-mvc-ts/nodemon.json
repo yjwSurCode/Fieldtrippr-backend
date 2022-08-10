@@ -1,0 +1,12 @@
+{
+  "restartable": "rs",
+  "ignore": ["**/__tests__/**"],
+  "verbose": true,
+  "ext": "js json ts",
+  "exec": "ts-node  ./src/app.ts",
+  "watch": ["./src/**"],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "legacy-watch": false
+}

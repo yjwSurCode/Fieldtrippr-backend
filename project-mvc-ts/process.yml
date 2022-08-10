@@ -1,0 +1,11 @@
+apps:
+
+  - script : ts-node src/app.ts
+
+    intance : 2
+
+    watch : true
+
+    env : 
+
+      NODE_ENV : production
