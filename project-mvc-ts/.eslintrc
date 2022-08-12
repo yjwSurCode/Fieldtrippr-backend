@@ -1,0 +1,26 @@
+// {
+//   "root": true, // 当前文件是否在项目的根目录
+//   "env": { // 启用 ESLint 检测的环境
+//     "node": true // 在 node 环境下启动 ESLint 检测
+//   },
+// //   extends: [ // 需要继承的基础配置项
+// //     'plugin:vue/vue3-essential',
+// //     '@vue/standard'
+// //   ],
+//   "parserOptions": { // 指明解析器
+//     "parser": 'babel-eslint'
+//   },
+//   /*
+//    * 这里非常重要，项目的主要配置规则是写在这里的！！！！！！
+//    * 比如：在项目中是否允许使用 console ？ 是否允许使用双引号包裹字符串？……
+//    *
+//    * "off" 或 0 - 关闭规则
+//    * "warn" 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出)
+//    * "error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
+//    */
+//   "rules": {
+//     "no-console": process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+//     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+//     'space-before-function-paren': 'off'
+//   }
+// }
