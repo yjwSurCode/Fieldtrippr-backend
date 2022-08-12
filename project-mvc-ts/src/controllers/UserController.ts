@@ -13,7 +13,7 @@ export class UserController {
       const result = {
         code: 200,
         status: "SUCCESS",
-        data,
+        ...data,
       };
 
       res.json([result]);
