@@ -38,7 +38,7 @@ const UserRegisterModel = (param: RegisterLoginState) => {
       return res;
     }
 
-    return { message: "Email has been registered" };
+    return { status:'Error', message: "Email has been registered" };
   });
 };
 
