@@ -1,5 +1,125 @@
 # ReactNative webview
 
+# 用法
+
+npm i react-native-webview
+
+<!-- <WebView  ref={ (webView) => this.webView = webView }
+        originWhitelist={ ['*'] }
+
+        // 布尔值,指定WebView中是否启用JavaScript。只在Android上使用，因为在iOS上默认启用了JavaScript。
+        javaScriptEnabled={ true }
+
+        // 布尔值,指定是否开启DOM本地存储
+        domStorageEnabled={ true }
+
+        // 允许文件上传
+        allowFileAccess={ true }
+
+        // 在webView内部网页中，调用window.postMessage可以触发此属性对应的函数，通过event.nativeEvent.data获取接收到的数据，实现网页和RN之间的数据传递
+        onMessage={ this._onMessage }
+
+        //初始化调用方法---------RNwebview向h5发送数据
+        onLoad={() => { this.handleInjectJavascript();}}
+
+        // 加载时强制使用loading转圈视图，如果为true，webview可能会加载失败，显示为空白
+        startInLoadingState={false}
+
+        // webview加载错误页面
+        renderError={this.renderErrorView}
+
+        // 网络路径
+        // 也可以为本地路径 source={ {uri: 'http://192.168.1.1111:8080/'} }
+        source={ {uri: 'http://www.baidu.com/'} } /> -->
+
+1：初始化调用方法---------RNwebview 向 h5 发送数据
+
+ <!-- handleInjectJavascript = (data) => {
+// 拼接数据为方法
+const injectJavascriptStr = `(function() { window.WebViewBridge.onMessage(${JSON.stringify(data)}); })()`;
+// 通过 injectJavaScript 将数据传递给 WebView 页面，并立即执行为 js
+if(this.webView) {
+this.webView.injectJavaScript(injectJavascriptStr)
+}
+} -->
+
+如果有回调的结果，需要在 mounted 生命周期函数中，H5 接受数据
+
+ <!-- mounted() {
+  window.WebViewBridge = {
+    onMessage: this._onMessage //在window上挂载一个onMessage方法，RN会调用
+  }
+  // 自定义事件后直接触发：
+  const event = new Event('WebViewBridge')
+  window.dispatchEvent(event);
+},
+methods: {
+  // 接收 RN 发送的消息
+  _onMessage(data) {
+    let that = this;
+    console.log('data ------- ',JSON.stringify(data)); // 'hello world'
+  }
+} -->
+
+2：H5 向 RN 传递数据
+
+  <!-- mounted() {初始化
+  // 自定义事件后直接触发：
+  const event = new Event('WebViewBridge');
+  window.dispatchEvent(event);
+},
+methods: {
+  // 向rn发送消息, 将值 'hello world' 挂载到 postMessage 
+  _postMessage('hello world') {
+      window.ReactNativeWebView.postMessage(data);
+  }
+} -->
+
+RN 页面在接收到 h5 传输的数据之后执行 onMessage 函数方法。
+
+<!--
+<WebView ref={ (webView) => this.webView = webView }
+onMessage={ this._onMessage }
+source={ {uri: 'http://www.baidu.com/'} } />
+
+_onMessage = (event) => {
+      console.log('接收vue发来的消息onMessage', event.nativeEvent.data);
+}
+ -->
+
+3:双向传值
+
+  <!-- mounted() {
+  window.WebViewBridge = {
+    onMessage: this._onMessage,
+    receiveMessage: this._receiveMessage //在window上挂载一个receiveMessage方法，RN自行调用
+  }
+  const event = new Event('WebViewBridge')
+  window.dispatchEvent(event);
+},
+methods: {
+  // 向rn发送消息
+  _postMessage('wow,RN!!') {
+      window.ReactNativeWebView.postMessage(data);   // 将值 'wow,RN!!' 挂载到 postMessage 
+  },
+  // 二次或多次接收RN发送消息
+   _receiveMessage(data){
+    let that = this;
+    console.log('data receiveMessage-------  ',JSON.stringify(data));
+   }
+} -->
+
+<!-- onMessage={ this._onMessage }
+// 接受H5发送来的消息
+_onMessage = (event) => {
+      console.log('接收H5发来的消息onMessage', event.nativeEvent.data);
+
+      const injectJavascriptStr =  `(function() {
+	   window.WebViewBridge.receiveMessage(${JSON.stringify('hello,vue2!!! ')});
+      })()`;
+      this.webView.injectJavaScript(injectJavascriptStr);
+} -->
+
 ## automaticallyAdjustContentInsets
 
 控制是否调整放置在导航条、标签栏或工具栏后面的 web 视图的内容。默认值为 true
@@ -92,3 +212,8 @@ scrollEnabled（ios）
 ## onShouldStartLoadWithRequest(ios)
 
 请求自定义处理，返回 true 或 false 表示是否要继续执行响应的请求
+
+
+
+参考地址：http://www.codebaoku.com/it-js/it-js-246420.html
+https://blog.csdn.net/weixin_44666116/article/details/108273085

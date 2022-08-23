@@ -1,47 +1,60 @@
-import {
-  UserModel,
-  UserRegisterModel,
-  UserLoginModel,
-} from "../models/UserModel";
+import { UserModel, UserRegisterModel, UserLoginModel, UserForgetPwModel } from '../models/UserModel';
 
 export class UserController {
-  async register(req: any, res: any, next: any) {
-    try {
-      const data = await UserRegisterModel(req.body);
-      console.log(data, "data");
+    async register(req: any, res: any, next: any) {
+        try {
+            const data = await UserRegisterModel(req.body);
+            console.log(data, 'data');
 
-      const result = {
-        code: 200,
-        status: "SUCCESS",
-        ...data,
-      };
+            const result = {
+                code: 200,
+                status: 'SUCCESS',
+                ...data,
+            };
 
-      res.json([result]);
-    } catch (e) {
-      console.log("TRY CATCH ERROR： " + e);
-      res.json([{ code: 500, message: e }]);
+            res.json([result]);
+        } catch (e) {
+            console.log('TRY CATCH ERROR： ' + e);
+            res.json([{ code: 500, message: e }]);
+        }
     }
-  }
 
-  async login(req: any, res: any, next: any) {
-    const data = await UserLoginModel(req.body);
+    async login(req: any, res: any, next: any) {
+        const data = await UserLoginModel(req.body);
 
-    const result = {
-      code: 200,
-      status: "SUCCESS",
-      ...data,
-    };
+        const result = {
+            code: 200,
+            status: 'SUCCESS',
+            ...data,
+        };
 
-    res.json([result]);
+        res.json([result]);
 
-    // res.json([{ code: 200, message: "登录成功" }]);
-    // res.json([{ code: 200, message: "登录失败" }]);
-  }
+        // res.json([{ code: 200, message: "登录成功" }]);
+        // res.json([{ code: 200, message: "登录失败" }]);
+    }
 
-  async getQuiz(req: any, res: any, next: any) {
-    const param = req.body;
-    const result = await UserModel(param);
-    console.log("result");
-    res.json([{ date: result }]);
-  }
+    async forgetPw(req: any, res: any, next: any) {
+        try {
+            const data = await UserForgetPwModel(req.body);
+
+            const result = {
+                code: 200,
+                status: 'SUCCESS',
+                ...data,
+            };
+
+            res.json([result]);
+        } catch (e) {
+            console.log('TRY CATCH ERROR： ' + e);
+            res.json([{ code: 500, message: e }]);
+        }
+    }
+
+    async getQuiz(req: any, res: any, next: any) {
+        const param = req.body;
+        const result = await UserModel(param);
+        console.log('result');
+        res.json([{ date: result }]);
+    }
 }
