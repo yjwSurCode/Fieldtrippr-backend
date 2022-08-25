@@ -64,10 +64,26 @@ const UserLoginModel = (param: RegisterLoginState) => {
             //! 数组第一项
             if (val[0].role === param.role) {
                 //! role is right and after that verificat password
-                const role = db.sequelizeRoot.query(`select * from fuser where role='${val.role}'`, {
-                    type: db.sequelizeRoot.QueryTypes.SELECT,
-                });
-                console.log('role is right');
+                const role = db.sequelizeRoot.query(
+                    `select * from fuser where role='${val.role}'and email='${param.email}'`,
+                    {
+                        type: db.sequelizeRoot.QueryTypes.SELECT,
+                    },
+                );
+                console.log('role is right', role);
+
+                return role;
+
+                // role.then((res: any) => {
+                //     console.log('11111111111', res);
+
+                //     if (res[0].password === param.password) {
+                //         return;
+                //     } else {
+                //         return { status: 'Error', message: 'Password error!' };
+                //     }
+                // });
+                //! 判断密码是否正确
             } else {
                 return { status: 'Error', message: 'Role error!' };
             }

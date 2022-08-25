@@ -22,6 +22,26 @@ export class UserController {
     async login(req: any, res: any, next: any) {
         const data = await UserLoginModel(req.body);
 
+        // const isPromise = (val: any) => {
+        //     return isObject(val) && isFunction(val.then) && isFunction(val.catch);
+        // };
+        console.log('22222', data, typeof data.then);
+        if (data instanceof Array) {
+            console.log('333333333', data);
+            if (data[0].password === req.body.password) {
+                res.json([
+                    {
+                        code: 200,
+                        status: 'SUCCESS',
+                    },
+                ]);
+                return;
+            } else {
+                res.json([{ status: 'Error', message: 'Password error!' }]);
+                return;
+            }
+        }
+
         const result = {
             code: 200,
             status: 'SUCCESS',
