@@ -31,7 +31,7 @@ const login_middleware_func = (req: any, res: any, next: any) => {
     const params = req.body;
     const { email, password, role } = params;
     if (!email || !password || typeof role !== 'number') {
-        res.json([{ code: 415, message: '参数错误' }]);
+        res.json([{ code: 415, message: 'parameter error' }]);
         return;
     }
     next();
