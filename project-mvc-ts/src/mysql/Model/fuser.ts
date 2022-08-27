@@ -9,7 +9,7 @@ const Fuser = db.sequelizeRoot.define(
       type: DataTypes.INTEGER, //定义数据类型
       primaryKey: true, //设置主键
       autoIncrement: true, //设置自动增长
-      comment: "自增id", //添加描述
+      comment: "auto_increment_id", //添加描述
     },
     email: {
       type: DataTypes.STRING,
