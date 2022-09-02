@@ -1,4 +1,4 @@
-import { db, Order } from '../mysql/index';
+import { db } from '../mysql/index';
 
 /* 前端传入类型 */
 interface RegisterLoginState {

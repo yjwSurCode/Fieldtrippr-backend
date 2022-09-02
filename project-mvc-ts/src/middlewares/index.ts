@@ -44,7 +44,7 @@ const forgetPw_middleware_func = (req: any, res: any, next: any) => {
     const params = req.body;
     const { email } = params;
     if (!email) {
-        res.json([{ code: 415, message: 'Parameter error' }]);
+        res.json([{ code: 415, message: '参数错误' }]);
         return;
     }
     next();

@@ -47,45 +47,15 @@ router.post('/register', register_middleware_func, User.register);
 router.post('/forgetPw', forgetPw_middleware_func, User.forgetPw);
 router.post('/login', login_middleware_func, User.login);
 
-router.post('/open/tender/apply/purchaseType', (req, res) => {
-    res.send([{ msg: '666777' }]);
-});
-
-router.post('/openApi/openTender/fileUpload', upload.array('file', 12), (req: any, res) => {
-    console.log(req.files, '00000', req.files[0].originalname);
-    // //创建formidable表单解析对象
-    // const form = new formidable.IncomingForm();
-    // //解析客户端传递过来的formData对象
-    // form.parse(req, (err: any, fields: any, files: any) => {
-    //     //req:请求对象，err错误对象，filelds：普通请求参数的内容
-    //     //files：文件的内容
-    //     console.log(err, fields, files, '1111');
-    //     res.send({ code: 200, msg: '1123312', data: { fileName: '错误.docx' } });
-    //     // res.send(fields);
-    // });
-
-    if (req.files[0].originalname === 'yuanxin.png') {
-        setTimeout(() => {
-            res.send({
-                code: 200,
-                msg: 'success',
-                data: {
-                    fileName: req.files[0].originalname.toString(),
-                    url: '/shop-invite-api/2593d35f-dd6c-41d6-8e9f-028e037202bf.docx',
-                },
-            });
-        }, 2000);
-    } else {
-        setTimeout(() => {
-            res.send({
-                code: 80003,
-                msg: '文件上传失败',
-                data: {
-                    fileName: req.files[0].originalname.toString(),
-                },
-            });
-        }, 2000);
-    }
+router.post('/formData', (req, res) => {
+    //创建formidable表单解析对象
+    const form = new formidable.IncomingForm();
+    //解析客户端传递过来的formData对象
+    form.parse(req, (err: any, fields: any, files: any) => {
+        //req:请求对象，err错误对象，filelds：普通请求参数的内容
+        //files：文件的内容
+        res.send(fields);
+    });
 });
 
 /** 权限 */

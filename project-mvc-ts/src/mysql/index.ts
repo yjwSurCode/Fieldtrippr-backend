@@ -18,28 +18,28 @@ try {
 }
 
 import Fuser from './Model/fuser';
-import Order from './Model/order';
-import Books from './Model/books';
+// import Order from './Model/order';
+// import Books from './Model/books';
 
-import Student_teacher_profile from './Model/student_teacher_profile';
-import Fieldtrippr_class from './Model/fieldtrippr_class';
-import Student_booklet from './Model/student_booklet';
-import Student_bookshelf from './Model/student_bookshelf';
-import Subjects from './Model/subjects';
-import Teacher_booklet from './Model/teacher_booklet';
-import Teacher_bookshelf from './Model/teacher_bookshelf';
+// import Student_teacher_profile from './Model/student_teacher_profile';
+// import Fieldtrippr_class from './Model/fieldtrippr_class';
+// import Student_booklet from './Model/student_booklet';
+// import Student_bookshelf from './Model/student_bookshelf';
+// import Subjects from './Model/subjects';
+// import Teacher_booklet from './Model/teacher_booklet';
+// import Teacher_bookshelf from './Model/teacher_bookshelf';
 
 export {
     db,
     DataTypes,
-    Order,
-    Books,
     Fuser,
-    Student_teacher_profile,
-    Fieldtrippr_class,
-    Student_booklet,
-    Student_bookshelf,
-    Subjects,
-    Teacher_booklet,
-    Teacher_bookshelf,
+    // Order,
+    // Books,
+    // Student_teacher_profile,
+    // Fieldtrippr_class,
+    // Student_booklet,
+    // Student_bookshelf,
+    // Subjects,
+    // Teacher_booklet,
+    // Teacher_bookshelf,
 };
