@@ -12,7 +12,7 @@ const SECRET_KEY = 'login-surcode';
 const app = express();
 
 /** 设置端口 */
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3030);
 
 /* bodyParser 使用bodyParser 解析post请求传递过来的参数 */
 app.use(bodyParser.json());
@@ -48,7 +48,8 @@ app.get('/html', (req, res) => {
 });
 
 // MAIN ENTRY
-var server = app.listen(app.get('port'), process.env.IP || '0.0.0.0', () => {
+// app.get('port')  process.env.IP || '0.0.0.0'
+var server = app.listen(3000, process.env.IP || '0.0.0.0', () => {
     console.log(`App runing at http://localhost:3000`, app.get('port'));
 });
 

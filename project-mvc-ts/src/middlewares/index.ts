@@ -18,7 +18,7 @@ const register_middleware_func = (req: any, res: any, next: any) => {
     const { email, password, role } = params;
     console.log(!email, !password, !role, typeof role !== 'number', '0000000');
     if (!email || !password || typeof role !== 'number') {
-        res.json([{ code: 415, message: '参数错误' }]);
+        res.json([{ code: 415, message: 'Parameter error' }]);
         return;
     }
     next(); // 调用 next() ，Express 将调用处理链中下一个中间件函数。
@@ -31,7 +31,7 @@ const login_middleware_func = (req: any, res: any, next: any) => {
     const params = req.body;
     const { email, password, role } = params;
     if (!email || !password || typeof role !== 'number') {
-        res.json([{ code: 415, message: '参数错误' }]);
+        res.json([{ code: 415, message: 'Parameter error' }]);
         return;
     }
     next();
@@ -44,7 +44,7 @@ const forgetPw_middleware_func = (req: any, res: any, next: any) => {
     const params = req.body;
     const { email } = params;
     if (!email) {
-        res.json([{ code: 415, message: '参数错误' }]);
+        res.json([{ code: 415, message: 'Parameter error' }]);
         return;
     }
     next();

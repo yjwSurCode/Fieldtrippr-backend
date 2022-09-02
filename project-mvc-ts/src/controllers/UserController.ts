@@ -5,7 +5,6 @@ export class UserController {
         try {
             const data = await UserRegisterModel(req.body);
             console.log(data, 'data');
-
             const result = {
                 code: 200,
                 status: 'SUCCESS',
@@ -27,7 +26,7 @@ export class UserController {
         // };
         console.log('22222', data, typeof data.then);
         if (data instanceof Array) {
-            console.log('333333333', data);
+            console.log('login断点测试', data);
             if (data[0].password === req.body.password) {
                 res.json([
                     {
