@@ -19,12 +19,14 @@ export class UserController {
     }
 
     async login(req: any, res: any, next: any) {
+
+        // 儅程序報錯 服務不應該停止 而是報錯500
         const data = await UserLoginModel(req.body);
 
         // const isPromise = (val: any) => {
         //     return isObject(val) && isFunction(val.then) && isFunction(val.catch);
         // };
-        console.log('22222', data, typeof data.then);
+        console.log('22222', data, typeof data); // []
         if (data instanceof Array) {
             console.log('login断点测试', data);
             if (data[0].password === req.body.password) {

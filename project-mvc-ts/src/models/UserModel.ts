@@ -61,17 +61,22 @@ const UserLoginModel = (param: RegisterLoginState) => {
         if (val.length === 0) {
             return { status: 'Error', message: 'Email not registered' };
         } else {
-            //! 数组第一项
+            //! 数组第一项  這種情況只有一項  別的情況有多項目 需要具體去分析
             if (val[0].role === param.role) {
                 //! role is right and after that verificat password
                 const role = db.sequelizeRoot.query(
-                    `select * from fuser where role='${val.role}'and email='${param.email}'`,
+                    `select * from fuser where role='${val[0].role}'and email='${param.email}'`,
                     {
                         type: db.sequelizeRoot.QueryTypes.SELECT,
                     },
                 );
                 console.log('role is right', role);
 
+                role.then((res:any)=>{
+
+                    console.log('role11111',res)
+                })
+                // return pormise!!!
                 return role;
 
                 // role.then((res: any) => {
