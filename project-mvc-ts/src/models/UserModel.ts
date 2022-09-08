@@ -40,7 +40,8 @@ const UserRegisterModel = (param: RegisterLoginState) => {
                 )
                 .then((v: any) => v);
 
-            // const a = res.then((v: any) => v);
+            //关联fuser_info
+            // userId===id
 
             console.log(res, 'AAAAAA');
             return res;
@@ -72,10 +73,9 @@ const UserLoginModel = (param: RegisterLoginState) => {
                 );
                 console.log('role is right', role);
 
-                role.then((res:any)=>{
-
-                    console.log('role11111',res)
-                })
+                role.then((res: any) => {
+                    console.log('role11111', res);
+                });
                 // return pormise!!!
                 return role;
 
@@ -139,4 +139,30 @@ const UserModel = (param: any) => {
     });
 };
 
-export { UserModel, UserRegisterModel, UserLoginModel, UserForgetPwModel };
+const UserChangeUserNameModel = (param: any) => {
+    return new Promise((resolve, _) => {
+        const res = db.sequelizeRoot.query(`SELECT * FROM fuser where email=${param.email}`, {
+            type: db.sequelizeRoot.QueryTypes.SELECT,
+        });
+        console.log(res, 'res');
+        resolve(res);
+    }).then((val: any) => {
+        console.log('val', val);
+        if (val.length == 0) {
+            return { data: null, message: 'email is not' };
+        }
+
+        const res = db.sequelizeRoot.query(`SELECT * FROM fuser_info where email=${val[0].id}`, {
+            /** TypeError: results.map is not a function */
+            type: db.sequelizeRoot.QueryTypes.SELECT,
+        });
+
+        res.then((v: any) => {
+            console.log(v, 'vvv');
+        });
+
+        return res;
+    });
+};
+
+export { UserModel, UserRegisterModel, UserLoginModel, UserForgetPwModel, UserChangeUserNameModel };

@@ -50,7 +50,26 @@ const forgetPw_middleware_func = (req: any, res: any, next: any) => {
     next();
 };
 
-export { middleware_function, register_middleware_func, login_middleware_func, forgetPw_middleware_func };
+/** 修改用户名中间件 */
+const changeUserName_middleware_func = (req: any, res: any, next: any) => {
+    // ... 进行一些操作
+    console.log('middleware...');
+    const params = req.body;
+    const { email } = params;
+    if (!email) {
+        res.json([{ code: 415, message: '参数错误' }]);
+        return;
+    }
+    next();
+};
+
+export {
+    middleware_function,
+    register_middleware_func,
+    login_middleware_func,
+    forgetPw_middleware_func,
+    changeUserName_middleware_func,
+};
 
 // 用 use() 为所有的路由和动词添加该函数
 app.use(middleware_function);

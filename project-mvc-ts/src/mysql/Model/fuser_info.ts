@@ -2,7 +2,7 @@ import { db, DataTypes } from '../index';
 
 //定义模型
 const Fuser = db.sequelizeRoot.define(
-    'fuser' /* 自定义表名 */,
+    'fuser_info' /* 自定义表名 */,
     {
         // 定义表中的字段，对象中的属性
         id: {
@@ -11,21 +11,20 @@ const Fuser = db.sequelizeRoot.define(
             autoIncrement: true, //设置自动增长
             comment: 'auto_increment_id', //添加描述
         },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false, //是否允许为空，默认为true
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        role: {
+        userId: {
             type: DataTypes.INTEGER,
-            defaultValue: 0, //设置默认值
+            allowNull: false, //是否允许为空，默认为true
+            comment: '对应每一个用户', //添加描述
         },
-        userName: {
+        fancy: {
             type: DataTypes.STRING,
-            allowNull: true, //是否允许为空，默认为true
+            allowNull: true,
+            comment: '喜爱', //添加描述
+        },
+        subjects: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            comment: '科目', //添加描述
         },
     },
     {

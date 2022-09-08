@@ -1,4 +1,10 @@
-import { UserModel, UserRegisterModel, UserLoginModel, UserForgetPwModel } from '../models/UserModel';
+import {
+    UserModel,
+    UserRegisterModel,
+    UserLoginModel,
+    UserForgetPwModel,
+    UserChangeUserNameModel,
+} from '../models/UserModel';
 
 export class UserController {
     async register(req: any, res: any, next: any) {
@@ -19,8 +25,7 @@ export class UserController {
     }
 
     async login(req: any, res: any, next: any) {
-
-        // 儅程序報錯 服務不應該停止 而是報錯500
+        // TODO 儅程序報錯 服務不應該停止 而是報錯500
         const data = await UserLoginModel(req.body);
 
         // const isPromise = (val: any) => {
@@ -28,7 +33,6 @@ export class UserController {
         // };
         console.log('22222', data, typeof data); // []
         if (data instanceof Array) {
-            console.log('login断点测试', data);
             if (data[0].password === req.body.password) {
                 res.json([
                     {
@@ -59,6 +63,24 @@ export class UserController {
         try {
             const data = await UserForgetPwModel(req.body);
 
+            const result = {
+                code: 200,
+                status: 'SUCCESS',
+                ...data,
+            };
+
+            res.json([result]);
+        } catch (e) {
+            console.log('TRY CATCH ERROR： ' + e);
+            res.json([{ code: 500, message: e }]);
+        }
+    }
+
+    async changeUserName(req: any, res: any, next: any) {
+        try {
+            const data = await UserChangeUserNameModel(req.body);
+
+            // TODO 具体返回 看具体业务
             const result = {
                 code: 200,
                 status: 'SUCCESS',
