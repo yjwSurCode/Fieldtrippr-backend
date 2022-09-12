@@ -49,6 +49,8 @@ router.post('/forgetPw', forgetPw_middleware_func, User.forgetPw);
 router.post('/login', login_middleware_func, User.login);
 router.post('/changeUserName', changeUserName_middleware_func, User.changeUserName);
 
+router.post('/change_gmail', User.changeGmail);
+
 router.post('/formData', (req, res) => {
     //创建formidable表单解析对象
     const form = new formidable.IncomingForm();
