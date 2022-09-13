@@ -49,7 +49,8 @@ app.get('/html', (req, res) => {
 
 // MAIN ENTRY
 // app.get('port')  process.env.IP || '0.0.0.0'
-var server = app.listen(3030, process.env.IP || '0.0.0.0', () => {
+//! 判断线上线下端口 
+var server = app.listen(3000, process.env.IP || '0.0.0.0', () => {
     console.log(`App runing at http://localhost:3000`, app.get('port'));
 });
 

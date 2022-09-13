@@ -38,10 +38,21 @@ const UserRegisterModel = (param: RegisterLoginState) => {
                         type: db.sequelizeRoot.QueryTypes.INSERT,
                     },
                 )
-                .then((v: any) => v);
-
-            //关联fuser_info
-            // userId===id
+                .then((v1: any) => {
+                    console.log('val22222', v1); // [25,1]  前面是主键id
+                    //关联fuser_info
+                    // userId===id
+                    if (!v1[0]) {
+                        return;
+                    }
+                    db.sequelizeRoot
+                        .query(`insert into fuser_info(userId) values('${v1[0]}')`, {
+                            type: db.sequelizeRoot.QueryTypes.INSERT,
+                        })
+                        .then((v2: any) => {
+                            console.log('val33333', v2);
+                        });
+                });
 
             console.log(res, 'AAAAAA');
             return res;
@@ -96,16 +107,29 @@ const UserLoginModel = (param: RegisterLoginState) => {
     });
 };
 
-const UserForgetPwModel = (param: ForgetPwState): Promise<ResultState> => {
+const UserForgetPwModel = (param: any): any => {
     console.log(param, 'param99');
     return new Promise((resolve, reject) => {
-        const res = db.sequelizeRoot.query(`select * from fuser where email='${param.email}'`, {
-            //! type 仔细核对
-            type: db.sequelizeRoot.QueryTypes.SELECT,
-        });
+        //! 返回结果不好判断
+        const res = db.sequelizeRoot.query(
+            `UPDATE fuser SET password='${param.password ? param.password : 'Not yet'}' where email='${param.email}'`,
+            {
+                //! type 仔细核对
+                type: db.sequelizeRoot.QueryTypes.UPDATE,
+            },
+        );
+        // .then((v: any) => {
+        //     console.log('2222222', v);
+        // });
         resolve(res);
     }).then((val: any) => {
-        return { status: 'Error', message: 'Role error!' };
+        console.log('111111111111', val);
+
+        if (val[1] == 0) {
+            return { status: 'Error', message: 'email error! or Same as the original password' };
+        }
+
+        return {};
     });
 };
 
@@ -139,30 +163,74 @@ const UserModel = (param: any) => {
     });
 };
 
-const UserChangeUserNameModel = (param: any) => {
+const editUserModel = (param: any) => {
     return new Promise((resolve, _) => {
-        const res = db.sequelizeRoot.query(`SELECT * FROM fuser where email=${param.email}`, {
+        const res = db.sequelizeRoot.query(`SELECT * FROM fuser where email='${param.email}'`, {
             type: db.sequelizeRoot.QueryTypes.SELECT,
         });
-        console.log(res, 'res');
         resolve(res);
-    }).then((val: any) => {
-        console.log('val', val);
-        if (val.length == 0) {
-            return { data: null, message: 'email is not' };
+    }).then((v1: any) => {
+        console.log('e-----val111111', v1);
+
+        if (v1.length == 0) {
+            return { data: null, message: 'email is error' };
         }
+        // 多条数据 insert into student_info(stuName,stuAge) values('zhanghua',13),('zhanghua',14),('zhanghua',15);
+        const res2 = db.sequelizeRoot
+            .query(
+                // `insert into fuser_info(about,skill,fancy) values('${param.about ? param.about : 'Not yet'}','${
+                //     param.skill ? param.skill : 'Not yet'
+                // }','${param.fancy ? param.fancy : 'Not yet'}') where userId='${v1[0].id}'`,
+                `UPDATE fuser_info SET about='${param.about ? param.about : 'Not yet'}', skill='${
+                    param.skill ? param.skill : 'Not yet'
+                }',fancy='${param.fancy ? param.fancy : 'Not yet'}' , subjects='${
+                    param.subjects ? param.subjects : 'Not yet'
+                }' where userId='${v1[0].id}'`,
+                {
+                    type: db.sequelizeRoot.QueryTypes.UPDATE,
+                },
+            )
+            .then((v2: any) => {
+                console.log('e-----val22222', v2);
+            });
 
-        const res = db.sequelizeRoot.query(`SELECT * FROM fuser_info where email=${val[0].id}`, {
-            /** TypeError: results.map is not a function */
-            type: db.sequelizeRoot.QueryTypes.SELECT,
-        });
+        console.log('e-----val---1.5', res2);
 
-        res.then((v: any) => {
-            console.log(v, 'vvv');
-        });
-
-        return res;
+        return res2;
     });
 };
 
-export { UserModel, UserRegisterModel, UserLoginModel, UserForgetPwModel, UserChangeUserNameModel };
+const sendGmailModel = (param: any): any => {
+    return new Promise((resolve, reject) => {
+        const res = db.sequelizeRoot
+            .query(`SELECT * FROM fuser where email='${param.email}'`, {
+                type: db.sequelizeRoot.QueryTypes.SELECT,
+            })
+            .then((v1: any) => {
+                if (v1.length == 0) {
+                    resolve({ code: 80010, data: null, message: 'email is error' });
+                    return { data: null, message: 'email is error' };
+                }
+                console.log('11111', v1); //v1[0].id
+                const res = db.sequelizeRoot.query(
+                    `UPDATE fuser_info SET m_code='${param.code ? param.code : 'Not yet'}' where userId='${v1[0].id}'`,
+                    {
+                        type: db.sequelizeRoot.QueryTypes.UPDATE,
+                    },
+                );
+
+                // return res;
+
+                resolve({ code: 200, res });
+            });
+    }).then((val: any) => {
+        console.log(val, '22222');
+        if (val.code !== 200) {
+            return val;
+        }
+
+        return val;
+    });
+};
+
+export { UserModel, UserRegisterModel, UserLoginModel, UserForgetPwModel, editUserModel, sendGmailModel };

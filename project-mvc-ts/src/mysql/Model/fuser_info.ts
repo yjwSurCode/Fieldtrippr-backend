@@ -16,6 +16,21 @@ const Fuser = db.sequelizeRoot.define(
             allowNull: false, //是否允许为空，默认为true
             comment: '对应每一个用户', //添加描述
         },
+        m_code: {
+            type: DataTypes.INTEGER,
+            allowNull: true, //是否允许为空，默认为true
+            comment: '验证码', //添加描述
+        },
+        about: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            comment: '简介', //添加描述
+        },
+        skill: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            comment: '技能', //添加描述
+        },
         fancy: {
             type: DataTypes.STRING,
             allowNull: true,

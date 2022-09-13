@@ -44,3 +44,11 @@ socket.volatile.emit('maybe', 'do you really need it?');
 io.local.emit('hi', 'my lovely babies');
 
 };
+
+编辑用户信息接口： /editUser
+
+发送邮件接口：/send_gmail
+
+{email：''}
+
+忘记密码接口：/forgetPw {email：'' ,password:''}

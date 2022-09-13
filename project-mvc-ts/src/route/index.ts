@@ -39,17 +39,20 @@ import {
     login_middleware_func,
     forgetPw_middleware_func,
     changeUserName_middleware_func,
+    sendGmail_middleware_func,
 } from '../middlewares/index';
 
 let User = new UserController();
 
 /** 白名单 */
 router.post('/register', register_middleware_func, User.register);
-router.post('/forgetPw', forgetPw_middleware_func, User.forgetPw);
 router.post('/login', login_middleware_func, User.login);
-router.post('/changeUserName', changeUserName_middleware_func, User.changeUserName);
 
-router.post('/change_gmail', User.changeGmail);
+router.post('/forgetPw', forgetPw_middleware_func, User.forgetPw);
+
+router.post('/editUser', changeUserName_middleware_func, User.editUser);
+
+router.post('/send_gmail', sendGmail_middleware_func, User.sendGmail);
 
 router.post('/formData', (req, res) => {
     //创建formidable表单解析对象

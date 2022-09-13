@@ -3,7 +3,8 @@ import {
     UserRegisterModel,
     UserLoginModel,
     UserForgetPwModel,
-    UserChangeUserNameModel,
+    editUserModel,
+    sendGmailModel,
 } from '../models/UserModel';
 
 const nodemailer = require('nodemailer');
@@ -12,7 +13,7 @@ export class UserController {
     async register(req: any, res: any, next: any) {
         try {
             const data = await UserRegisterModel(req.body);
-            console.log(data, 'data');
+            console.log(data, 'data-register');
             const result = {
                 code: 200,
                 status: 'SUCCESS',
@@ -27,12 +28,9 @@ export class UserController {
     }
 
     async login(req: any, res: any, next: any) {
-        // TODO 儅程序報錯 服務不應該停止 而是報錯500
+        //!!!!! TODO 儅程序報錯 服務不應該停止 而是報錯500
         const data = await UserLoginModel(req.body);
 
-        // const isPromise = (val: any) => {
-        //     return isObject(val) && isFunction(val.then) && isFunction(val.catch);
-        // };
         console.log('22222', data, typeof data); // []
         if (data instanceof Array) {
             if (data[0].password === req.body.password) {
@@ -78,10 +76,11 @@ export class UserController {
         }
     }
 
-    async changeUserName(req: any, res: any, next: any) {
+    async editUser(req: any, res: any, next: any) {
         try {
-            const data = await UserChangeUserNameModel(req.body);
+            const data = await editUserModel(req.body);
 
+            console.log('e-----333333333', data);
             // TODO 具体返回 看具体业务
             const result = {
                 code: 200,
@@ -96,9 +95,15 @@ export class UserController {
         }
     }
 
-    async changeGmail(req: any, res: any, next: any) {
+    async sendGmail(req: any, res: any, next: any) {
         console.log(111, req.body.email);
-        // return;
+
+        const data = await sendGmailModel({ email: req.body.email, code: 1234 });
+
+        console.log('333333', data);
+
+        res.json([{ code: 200, message: 'Verification code has been sent, please wait patiently', ...data }]);
+
         try {
             console.log(222);
             //vcadlbkajgigruje
@@ -127,7 +132,7 @@ export class UserController {
 
             let mailDetails = {
                 from: 'yjw520yjw520@gmail.com',
-                to: req.body.email, //'jocelynjocelyn0231@gmail.com',
+                to: req.body.email,
                 subject: 'Test mail',
                 text: 'Node.js testing mail for 1234',
             };
@@ -135,41 +140,16 @@ export class UserController {
             mailTransporter
                 .sendMail(mailDetails)
                 .then((info: any) => {
-                    console.log({ info });
-                    res.json([{ code: 200, message: 'Email sent successfully' }]);
+                    console.log(info, 'sendMail');
                 })
                 .catch((err: any) => {
-                    console.log({ err });
-                    res.json([{ code: 80010, message: 'Error Occurs' }]);
+                    console.log(err, 'err');
+                    // res.json([{ code: 80010, message: 'Error Occurs' }]);
                 });
-
-            // mailTransporter.sendMail(mailDetails, function (err: any, data: any) {
-            //     if (err) {
-            //         console.log('Error Occurs');
-            //     } else {
-            //         console.log('Email sent successfully');
-            //     }
-            // });
         } catch (e) {
             console.log('TRY CATCH ERROR： ' + e);
             res.json([{ code: 500, message: e }]);
         }
-
-        // try {
-        //     const data = await UserChangeUserNameModel(req.body);
-
-        //     // TODO 具体返回 看具体业务
-        //     const result = {
-        //         code: 200,
-        //         status: 'SUCCESS',
-        //         ...data,
-        //     };
-
-        //     res.json([result]);
-        // } catch (e) {
-        //     console.log('TRY CATCH ERROR： ' + e);
-        //     res.json([{ code: 500, message: e }]);
-        // }
     }
 
     async getQuiz(req: any, res: any, next: any) {
