@@ -31,6 +31,7 @@ var router = Router();
 
 /** 导入控制器 */
 import { UserController } from '../controllers/UserController';
+import { MessageController } from '../controllers/MessageController';
 
 /** 导入中间件 */
 import {
@@ -40,9 +41,12 @@ import {
     forgetPw_middleware_func,
     changeUserName_middleware_func,
     sendGmail_middleware_func,
+    sendMessage_middleware_func,
 } from '../middlewares/index';
 
 let User = new UserController();
+
+let Message = new MessageController();
 
 /** 白名单 */
 router.post('/register', register_middleware_func, User.register);
@@ -53,6 +57,8 @@ router.post('/forgetPw', forgetPw_middleware_func, User.forgetPw);
 router.post('/editUser', changeUserName_middleware_func, User.editUser);
 
 router.post('/send_gmail', sendGmail_middleware_func, User.sendGmail);
+
+router.post('/send_message', sendMessage_middleware_func, Message.send_message);
 
 router.post('/formData', (req, res) => {
     //创建formidable表单解析对象

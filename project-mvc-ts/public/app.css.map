@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../client/app.css"],
-  "sourcesContent": ["body {\r\n    background-color: hsl(210deg, 100%, 90%);\r\n    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;\r\n}\r\n"],
-  "mappings": ";AAAA;AACI;AACA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "sourcesContent": ["body {\r\n    background-color: hsl(210deg, 100%, 90%);\r\n    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;\r\n    color: #bdfde8;\r\n}\r\n"],
+  "mappings": ";AAAA;AACI;AACA;AAAA;AAAA;AAAA;AAAA;AAAA;AACA;AAAA;",
   "names": []
 }

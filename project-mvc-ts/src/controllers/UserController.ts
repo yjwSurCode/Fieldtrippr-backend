@@ -98,11 +98,7 @@ export class UserController {
     async sendGmail(req: any, res: any, next: any) {
         console.log(111, req.body.email);
 
-        const data = await sendGmailModel({ email: req.body.email, code: 1234 });
-
-        console.log('333333', data);
-
-        res.json([{ code: 200, message: 'Verification code has been sent, please wait patiently', ...data }]);
+        const radom = Math.floor(Math.random() * (9999 - 1000)) + 1000;
 
         try {
             console.log(222);
@@ -134,17 +130,22 @@ export class UserController {
                 from: 'yjw520yjw520@gmail.com',
                 to: req.body.email,
                 subject: 'Test mail',
-                text: 'Node.js testing mail for 1234',
+                text: `The verification code is ${radom}`,
             };
 
             mailTransporter
                 .sendMail(mailDetails)
-                .then((info: any) => {
+                .then(async (info: any) => {
                     console.log(info, 'sendMail');
+                    const data = await sendGmailModel({ email: req.body.email, code: 1234 });
+                    console.log('333333', data);
+                    res.json([
+                        { code: 200, message: 'Verification code has been sent, please wait patiently', ...data },
+                    ]);
                 })
                 .catch((err: any) => {
                     console.log(err, 'err');
-                    // res.json([{ code: 80010, message: 'Error Occurs' }]);
+                    res.json([{ code: 80010, message: 'Error Occurs' }]);
                 });
         } catch (e) {
             console.log('TRY CATCH ERROR： ' + e);

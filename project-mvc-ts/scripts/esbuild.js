@@ -22,9 +22,12 @@ fs.readdir(outDirectory, (err, files) => {
 
 //defaults to build
 let config = "-build";
+
 if (process.argv.length > 2) {
     config = process.argv[2];
 }
+
+console.log(config, 'config')
 
 config == "-watch" &&
     esbuild.build({

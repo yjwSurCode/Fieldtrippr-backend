@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import ReactDOM from 'react-dom';
-import NATIVE_BRIDGE from './native-platform';
+import { Serivce } from '../client/axios';
+// import { NATIVE_BRIDGE } from './native-platform';
+let Svc = new Serivce();
 import './app.css';
 
 const App = () => {
-    const socket = io.connect('http://localhost:3000');
+    const socket = io.connect('http://localhost:3030');
     //Listen on new_message
     socket.on('new_message', (data) => {
-        console.log('socket.on--new_message', data);
+        // console.log('socket.on--new_message', data);
         setTyping('');
         setTextList([...textList, { user: data.username, message: data.message }]);
     });
@@ -22,9 +23,24 @@ const App = () => {
     const [typing, setTyping] = useState('');
     const [textList, setTextList] = useState([]);
 
+    const [reviceUserList, setReviceUserList] = useState([{ name: '用户1' }, { name: '用户2' }, { name: '用户3' }]);
+
     const handleSendButton = () => {
         console.log('handleSendButton', messageRef);
         socket.emit('new_message', { message: messageRef.current.value });
+
+        /** 保存聊天记录 */
+        let params = {
+            send_target: '11',
+            receive_target: '22',
+            create_time: new Date().getTime(),
+            has_read: false,
+            message: messageRef.current.value,
+        };
+
+        console.log('params-----', params, new Date(params.create_time));
+
+        Svc.saveMessage(params);
     };
 
     //Emit change_username
@@ -39,21 +55,34 @@ const App = () => {
     };
 
     useEffect(() => {
-        console.log('app-init', NATIVE_BRIDGE);
+        // console.log('app-init', NATIVE_BRIDGE);
     }, []);
 
     const Header = () => {
-        return <div>头部</div>;
+        return (
+            <div>
+                <div>添加</div>
+                {reviceUserList.map((d) => {
+                    return <div></div>;
+                })}
+                <div>用户1</div>
+                <div>用户2</div>
+                <div>用户3</div>
+            </div>
+        );
     };
 
     const NewMessage = () => {
-        return <div>最新消息</div>;
+        return <div>最新消息12</div>;
+    };
+
+    const MessageRegion = () => {
+        return <div>最新消息12</div>;
     };
 
     const Chat = () => {
         return (
             <div>
-                {' '}
                 <section>
                     <div id="change_username">
                         <input ref={nameRef} id="username" type="text" />
@@ -96,6 +125,7 @@ const App = () => {
         <>
             <Header></Header>
             <NewMessage></NewMessage>
+            <MessageRegion></MessageRegion>
             <Chat></Chat>
         </>
     );

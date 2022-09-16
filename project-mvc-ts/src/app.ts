@@ -20,7 +20,6 @@ app.use(express.json({ limit: '2100000kb' }));
 
 /* 跨域配置 */
 app.use((req: any, res: any, next: any) => {
-    console.log(req.url);
     res.append('Access-Control-Allow-Origin', '*');
     res.append('Access-Control-Allow-Origin-Type', '*');
     res.header('Access-Control-Allow-Headers', '*');
@@ -43,14 +42,15 @@ app.use('/', router);
 
 /** 静态文件夹 */
 app.use(express.static('public'));
+/** socket.io */
 app.get('/html', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 // MAIN ENTRY
 // app.get('port')  process.env.IP || '0.0.0.0'
-//! 判断线上线下端口 
-var server = app.listen(3000, process.env.IP || '0.0.0.0', () => {
+//! 可以做一个判断线上线下端口
+var server = app.listen(3030, process.env.IP || '0.0.0.0', () => {
     console.log(`App runing at http://localhost:3000`, app.get('port'));
 });
 
@@ -62,7 +62,7 @@ const io = new Server(server, {
 
 //listen on every connection
 io.on('connection', (socket: any) => {
-    console.log(socket, 'New user connected');
+    // console.log('socket1111111111111', socket, 'New user connected'); //! 多次触发
 
     //default username
     socket.username = 'Anonymous';

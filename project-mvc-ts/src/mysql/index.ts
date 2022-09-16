@@ -19,6 +19,7 @@ try {
 
 import Fuser from './Model/fuser';
 import FuserInfo from './Model/fuser_info';
+import ChatInfo from './Model/chat_info';
 // import Order from './Model/order';
 // import Books from './Model/books';
 
@@ -35,6 +36,7 @@ export {
     DataTypes,
     Fuser,
     FuserInfo,
+    ChatInfo,
     // Order,
     // Books,
     // Student_teacher_profile,
