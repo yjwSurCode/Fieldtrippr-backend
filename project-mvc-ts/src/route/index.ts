@@ -42,6 +42,7 @@ import {
     changeUserName_middleware_func,
     sendGmail_middleware_func,
     sendMessage_middleware_func,
+    obtainMessage_middleware_func,
 } from '../middlewares/index';
 
 let User = new UserController();
@@ -59,6 +60,8 @@ router.post('/editUser', changeUserName_middleware_func, User.editUser);
 router.post('/send_gmail', sendGmail_middleware_func, User.sendGmail);
 
 router.post('/send_message', sendMessage_middleware_func, Message.send_message);
+
+router.post('/obtain_message', obtainMessage_middleware_func, Message.obtain_message);
 
 router.post('/formData', (req, res) => {
     //创建formidable表单解析对象

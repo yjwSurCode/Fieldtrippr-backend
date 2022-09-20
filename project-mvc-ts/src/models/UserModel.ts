@@ -40,8 +40,8 @@ const UserRegisterModel = (param: RegisterLoginState) => {
                 )
                 .then((v1: any) => {
                     console.log('val22222', v1); // [25,1]  前面是主键id
-                    //关联fuser_info
-                    // userId===id
+                    //!关联fuser_info
+                    //!userId===id
                     if (!v1[0]) {
                         return;
                     }

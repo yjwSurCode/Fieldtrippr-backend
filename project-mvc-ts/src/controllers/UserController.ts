@@ -38,6 +38,7 @@ export class UserController {
                     {
                         code: 200,
                         status: 'SUCCESS',
+                        userId: data[0].id,
                     },
                 ]);
                 return;

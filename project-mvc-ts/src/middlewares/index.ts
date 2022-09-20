@@ -82,9 +82,23 @@ const sendMessage_middleware_func = (req: any, res: any, next: any) => {
 
     const params = req.body;
     console.log('middleware...', params);
-    const { send_target } = params.params;
-     console.log('middleware1...', send_target);
-    if (!send_target) {
+    const { send_target, create_time } = params.params;
+    console.log('middleware1...', send_target);
+    if (!send_target || !create_time) {
+        res.json([{ code: 415, message: '参数错误' }]);
+        return;
+    }
+    next();
+};
+
+/** 用户获取信息中间件 */
+const obtainMessage_middleware_func = (req: any, res: any, next: any) => {
+    // ... 进行一些操作
+    const params = req.body;
+    console.log('middleware...', params);
+    const { current_user_id, target_id } = params.params;
+
+    if (!current_user_id || !target_id) {
         res.json([{ code: 415, message: '参数错误' }]);
         return;
     }
@@ -99,6 +113,7 @@ export {
     changeUserName_middleware_func,
     sendGmail_middleware_func,
     sendMessage_middleware_func,
+    obtainMessage_middleware_func,
 };
 
 // 用 use() 为所有的路由和动词添加该函数

@@ -52,3 +52,29 @@ io.local.emit('hi', 'my lovely babies');
 {email：''}
 
 忘记密码接口：/forgetPw {email：'' ,password:''}
+
+发送聊天接口
+
+{
+  "params": {
+    "send_target": "11",
+    "receive_target": "22",
+    "create_time":"111",
+    "has_read": false,
+    "message": "messageRef.current.value"
+  }
+}
+
+获取聊天记录接口
+
+current_user_id: '11', 当前用户 userId
+target_id: '22', 目标用户 userId
+
+
+{
+  "params": {
+    "current_user_id": "11",
+    "target_id": "22"
+  }
+}
+
