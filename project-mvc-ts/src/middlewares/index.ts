@@ -50,7 +50,7 @@ const forgetPw_middleware_func = (req: any, res: any, next: any) => {
     next();
 };
 
-/** 修改用户名中间件 */
+/** 修改用户信息中间件 */
 const changeUserName_middleware_func = (req: any, res: any, next: any) => {
     // ... 进行一些操作
     console.log('middleware...');
@@ -82,9 +82,9 @@ const sendMessage_middleware_func = (req: any, res: any, next: any) => {
 
     const params = req.body;
     console.log('middleware...', params);
-    const { send_target, create_time } = params.params;
+    const { send_target, create_time, role } = params.params;
     console.log('middleware1...', send_target);
-    if (!send_target || !create_time) {
+    if (!send_target || !create_time || !role) {
         res.json([{ code: 415, message: '参数错误' }]);
         return;
     }
@@ -96,9 +96,23 @@ const obtainMessage_middleware_func = (req: any, res: any, next: any) => {
     // ... 进行一些操作
     const params = req.body;
     console.log('middleware...', params);
-    const { current_user_id, target_id } = params.params;
+    const { user_id } = params.params;
 
-    if (!current_user_id || !target_id) {
+    if (!user_id) {
+        res.json([{ code: 415, message: '参数错误' }]);
+        return;
+    }
+    next();
+};
+
+/** 获取userid */
+const obtain_userId_middleware_func = (req: any, res: any, next: any) => {
+    // ... 进行一些操作
+    const params = req.body;
+    console.log('middleware...1', params);
+    const { role } = params;
+
+    if (!role == undefined) {
         res.json([{ code: 415, message: '参数错误' }]);
         return;
     }
@@ -114,6 +128,7 @@ export {
     sendGmail_middleware_func,
     sendMessage_middleware_func,
     obtainMessage_middleware_func,
+    obtain_userId_middleware_func,
 };
 
 // 用 use() 为所有的路由和动词添加该函数

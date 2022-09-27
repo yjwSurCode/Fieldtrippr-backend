@@ -21,6 +21,11 @@ const Fuser = db.sequelizeRoot.define(
             allowNull: true, //是否允许为空，默认为true
             comment: '验证码', //添加描述
         },
+        img_url: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            comment: '用户头像地址',
+        },
         about: {
             type: DataTypes.STRING,
             allowNull: true,

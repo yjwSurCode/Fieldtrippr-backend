@@ -96,6 +96,11 @@ export class UserController {
         }
     }
 
+    async obtainUserInfo(req: any, res: any, next: any) {
+    
+    
+    }
+
     async sendGmail(req: any, res: any, next: any) {
         console.log(111, req.body.email);
 

@@ -43,6 +43,7 @@ import {
     sendGmail_middleware_func,
     sendMessage_middleware_func,
     obtainMessage_middleware_func,
+    obtain_userId_middleware_func,
 } from '../middlewares/index';
 
 let User = new UserController();
@@ -57,10 +58,17 @@ router.post('/forgetPw', forgetPw_middleware_func, User.forgetPw);
 
 router.post('/editUser', changeUserName_middleware_func, User.editUser);
 
+//获取所有用户信息
+// router.post('/obtain_userInfo', User.obtainUserInfo);
+
 router.post('/send_gmail', sendGmail_middleware_func, User.sendGmail);
 
 router.post('/send_message', sendMessage_middleware_func, Message.send_message);
 
+//学生先获取所有老师的userId  必须传入role
+router.post('/obtain_userId', obtain_userId_middleware_func, Message.obtain_userId);
+
+//老师根据userId获取 message   获取聊天记录接口
 router.post('/obtain_message', obtainMessage_middleware_func, Message.obtain_message);
 
 router.post('/formData', (req, res) => {

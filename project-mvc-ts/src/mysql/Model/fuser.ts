@@ -37,7 +37,7 @@ const Fuser = db.sequelizeRoot.define(
 
 //模型同步，迁移模型映射到数据库
 Fuser.sync({
-    force: false, //将创建表,如果表已经存在,则将其首先删除
+    force: true, //将创建表,如果表已经存在,则将其首先删除
 });
 
 export default Fuser;

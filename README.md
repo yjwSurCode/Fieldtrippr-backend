@@ -45,6 +45,10 @@ io.local.emit('hi', 'my lovely babies');
 
 };
 
+注册接口：
+role 0 为学生
+role 1 为老师
+
 编辑用户信息接口： /editUser
 
 发送邮件接口：/send_gmail
@@ -53,29 +57,53 @@ io.local.emit('hi', 'my lovely babies');
 
 忘记密码接口：/forgetPw {email：'' ,password:''}
 
-发送聊天接口
+更新用户信息接口:
+
+editUser
 
 {
-  "params": {
-    "send_target": "11",
-    "receive_target": "22",
-    "create_time":"111",
-    "has_read": false,
-    "message": "messageRef.current.value"
-  }
+email  必传
+user_img:"头像"
+about
+skill
+fancy
+subjects
+img_url
 }
 
-获取聊天记录接口
-
-current_user_id: '11', 当前用户 userId
-target_id: '22', 目标用户 userId
-
+发送聊天接口  send_message
 
 {
-  "params": {
-    "current_user_id": "11",
-    "target_id": "22"
-  }
+"params": {
+"send_target": "11",
+"role":"0",
+"userName":"",
+"create_time":"111",
+"has_read": false,
+"message": "messageRef.current.value"
+}
+}
+
+
+obtain_teacherId  获取所有学生或者老师的信息
+{
+role:0   
+}
+
+获取聊天记录接口 obtain_message
+{
+user_id: '11'
+}
+
+判断
+
+target_id: '22', 目标用户 userId
+
+{
+"params": {
+"current_user_id": "11",
+"target_id": "22"
+}
 }
 
 

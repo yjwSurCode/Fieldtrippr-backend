@@ -33,7 +33,7 @@ const UserRegisterModel = (param: RegisterLoginState) => {
         if (!noRegister) {
             const res = db.sequelizeRoot
                 .query(
-                    `insert into fuser(email,password,role) values('${param.email}','${param.password}','${param.role}')`,
+                    `insert into fuser(email,password,role) values('${param.email}','${param.password}',${param.role})`,
                     {
                         type: db.sequelizeRoot.QueryTypes.INSERT,
                     },
@@ -183,8 +183,9 @@ const editUserModel = (param: any) => {
                 // }','${param.fancy ? param.fancy : 'Not yet'}') where userId='${v1[0].id}'`,
                 `UPDATE fuser_info SET about='${param.about ? param.about : 'Not yet'}', skill='${
                     param.skill ? param.skill : 'Not yet'
-                }',fancy='${param.fancy ? param.fancy : 'Not yet'}' , subjects='${
-                    param.subjects ? param.subjects : 'Not yet'
+                }',fancy='${param.fancy ? param.fancy : 'Not yet'}' , 
+                subjects='${param.subjects ? param.subjects : 'Not yet'}' , img_url='${
+                    param.img_url ? param.img_url : 'Not yet'
                 }' where userId='${v1[0].id}'`,
                 {
                     type: db.sequelizeRoot.QueryTypes.UPDATE,

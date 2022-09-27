@@ -12,7 +12,7 @@ const Student__teacher_profile = db.sequelizeRoot.define(
             comment: '自增id', //添加描述
         },
         role: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false, //是否允许为空，默认为true
         },
     },

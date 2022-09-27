@@ -16,10 +16,10 @@ const ChatInfo = db.sequelizeRoot.define(
             allowNull: false, //是否允许为空，默认为true
             comment: '对应发送信息用户',
         },
-        receive_target: {
+        role: {
             type: DataTypes.INTEGER,
             allowNull: false, //是否允许为空，默认为true
-            comment: '接收信息的用户',
+            comment: '发送的角色',
         },
         create_time: {
             type: DataTypes.BIGINT,
