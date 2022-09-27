@@ -91,9 +91,13 @@ role:0
 }
 
 获取聊天记录接口 obtain_message
+
 {
+"params": {
 user_id: '11'
 }
+}
+
 
 判断
 
