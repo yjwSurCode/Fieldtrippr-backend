@@ -16,6 +16,10 @@ const Fuser = db.sequelizeRoot.define(
             allowNull: false, //是否允许为空，默认为true
             comment: '对应每一个用户', //添加描述
         },
+        userName: {
+            type: DataTypes.STRING,
+            allowNull: true, //是否允许为空，默认为true
+        },
         m_code: {
             type: DataTypes.INTEGER,
             allowNull: true, //是否允许为空，默认为true

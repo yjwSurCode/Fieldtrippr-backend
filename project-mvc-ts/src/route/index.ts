@@ -56,10 +56,11 @@ router.post('/login', login_middleware_func, User.login);
 
 router.post('/forgetPw', forgetPw_middleware_func, User.forgetPw);
 
+//编辑用户信息
 router.post('/editUser', changeUserName_middleware_func, User.editUser);
 
 //获取所有用户信息
-// router.post('/obtain_userInfo', User.obtainUserInfo);
+router.post('/obtain_userInfo', User.obtainUserInfo);
 
 router.post('/send_gmail', sendGmail_middleware_func, User.sendGmail);
 

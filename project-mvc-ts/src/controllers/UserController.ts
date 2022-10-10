@@ -4,6 +4,7 @@ import {
     UserLoginModel,
     UserForgetPwModel,
     editUserModel,
+    obtainUserInfoModel,
     sendGmailModel,
 } from '../models/UserModel';
 
@@ -97,8 +98,22 @@ export class UserController {
     }
 
     async obtainUserInfo(req: any, res: any, next: any) {
-    
-    
+        try {
+            const data = await obtainUserInfoModel(req.body);
+
+            console.log('e-----333333333', data);
+            // TODO 具体返回 看具体业务
+            const result = {
+                code: 200,
+                status: 'SUCCESS',
+                ...data,
+            };
+
+            res.json([result]);
+        } catch (e) {
+            console.log('TRY CATCH ERROR： ' + e);
+            res.json([{ code: 500, message: e }]);
+        }
     }
 
     async sendGmail(req: any, res: any, next: any) {

@@ -175,18 +175,18 @@ const editUserModel = (param: any) => {
         if (v1.length == 0) {
             return { data: null, message: 'email is error' };
         }
-        // 多条数据 insert into student_info(stuName,stuAge) values('zhanghua',13),('zhanghua',14),('zhanghua',15);
+        // TODO skill 表示数组
         const res2 = db.sequelizeRoot
             .query(
                 // `insert into fuser_info(about,skill,fancy) values('${param.about ? param.about : 'Not yet'}','${
                 //     param.skill ? param.skill : 'Not yet'
                 // }','${param.fancy ? param.fancy : 'Not yet'}') where userId='${v1[0].id}'`,
-                `UPDATE fuser_info SET about='${param.about ? param.about : 'Not yet'}', skill='${
-                    param.skill ? param.skill : 'Not yet'
-                }',fancy='${param.fancy ? param.fancy : 'Not yet'}' , 
-                subjects='${param.subjects ? param.subjects : 'Not yet'}' , img_url='${
-                    param.img_url ? param.img_url : 'Not yet'
-                }' where userId='${v1[0].id}'`,
+                `UPDATE fuser_info SET about='${param.about ? param.about : 'Not yet'}', 
+                skill='${param.skill ? param.skill : 'Not yet'}',
+                fancy='${param.fancy ? param.fancy : 'Not yet'}' , 
+                subjects='${param.subjects ? param.subjects : 'Not yet'}', 
+                userName='${param.userName ? param.userName : 'Not yet'}',
+                img_url='${param.img_url ? param.img_url : 'Not yet'}' where userId='${v1[0].id}'`,
                 {
                     type: db.sequelizeRoot.QueryTypes.UPDATE,
                 },
@@ -194,9 +194,26 @@ const editUserModel = (param: any) => {
             .then((v2: any) => {
                 console.log('e-----val22222', v2);
             });
-
         console.log('e-----val---1.5', res2);
 
+        return res2;
+    });
+};
+
+const obtainUserInfoModel = (param: any) => {
+    return new Promise((resolve, _) => {
+        const res = db.sequelizeRoot.query(`SELECT * FROM fuser where email='${param.email}'`, {
+            type: db.sequelizeRoot.QueryTypes.SELECT,
+        });
+        resolve(res);
+    }).then((v1: any) => {
+        console.log(v1[0], 'v1[0]');
+        if (!v1[0]) {
+            return { status: 'error', maeesge: 'email null' };
+        }
+        const res2 = db.sequelizeRoot.query(`SELECT * FROM fuser_info where userId=${v1[0].id}`, {
+            type: db.sequelizeRoot.QueryTypes.SELECT,
+        });
         return res2;
     });
 };
@@ -234,4 +251,12 @@ const sendGmailModel = (param: any): any => {
     });
 };
 
-export { UserModel, UserRegisterModel, UserLoginModel, UserForgetPwModel, editUserModel, sendGmailModel };
+export {
+    UserModel,
+    UserRegisterModel,
+    UserLoginModel,
+    UserForgetPwModel,
+    editUserModel,
+    obtainUserInfoModel,
+    sendGmailModel,
+};

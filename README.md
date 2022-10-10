@@ -55,14 +55,21 @@ role 1 为老师
 
 {email：''}
 
-忘记密码接口：/forgetPw {email：'' ,password:''}
+# 忘记密码接口：
+/forgetPw 
+{email：'' ,password:''}
 
-更新用户信息接口:
+# 获取用户信息 
+obtain_userInfo
 
+{ email 必传, }
+
+# 更新用户信息接口:
 editUser
 
 {
-email  必传
+email 必传,
+userName
 user_img:"头像"
 about
 skill
@@ -71,7 +78,7 @@ subjects
 img_url
 }
 
-发送聊天接口  send_message
+发送聊天接口 send_message
 
 {
 "params": {
@@ -84,10 +91,10 @@ img_url
 }
 }
 
+obtain_teacherId 获取所有学生或者老师的信息
 
-obtain_teacherId  获取所有学生或者老师的信息
 {
-role:0   
+role:0  
 }
 
 获取聊天记录接口 obtain_message
@@ -97,7 +104,6 @@ role:0
 user_id: '11'
 }
 }
-
 
 判断
 
@@ -110,25 +116,14 @@ target_id: '22', 目标用户 userId
 }
 }
 
-
-
-
-
-
-
 22-9-26
-
 
 commit 65d0724f18c30fe1b2d9da0b1ea3fbd0ad2a6c06
 Author: Ye Huang <1010386305@qq.com>
-Date:   Fri Aug 12 09:05:34 2022 +0100
+Date: Fri Aug 12 09:05:34 2022 +0100
 
     interface_optimized_return
 
-  
+git checkout 405d908b8c1799b3c1ccd235e8be68327aafc6d0 (origin/yeye)
 
-git  checkout    405d908b8c1799b3c1ccd235e8be68327aafc6d0 (origin/yeye)
-
-除开nodemodules  
-
-
+除开 nodemodules

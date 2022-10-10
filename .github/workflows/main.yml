@@ -29,10 +29,21 @@ jobs:
       - name: Run a one-line script
         run: npm run build # echo Hello, world!
 
+      - name: Run a two-line script
+        run: npm run build # echo Hello, world!
+
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: ssh docker login
+        uses: appleboy/ssh-action@master 
+      with:
+        host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: cd /script/ && sh react-demo.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+
 
 #  git commit -m 'feat:CI/CD 0.1'

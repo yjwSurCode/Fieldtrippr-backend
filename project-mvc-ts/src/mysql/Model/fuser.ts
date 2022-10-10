@@ -23,10 +23,6 @@ const Fuser = db.sequelizeRoot.define(
             type: DataTypes.INTEGER,
             defaultValue: 0, //设置默认值
         },
-        userName: {
-            type: DataTypes.STRING,
-            allowNull: true, //是否允许为空，默认为true
-        },
     },
     {
         // 其他模型参数
@@ -37,7 +33,7 @@ const Fuser = db.sequelizeRoot.define(
 
 //模型同步，迁移模型映射到数据库
 Fuser.sync({
-    force: true, //将创建表,如果表已经存在,则将其首先删除
+    force: false, //将创建表,如果表已经存在,则将其首先删除
 });
 
 export default Fuser;
