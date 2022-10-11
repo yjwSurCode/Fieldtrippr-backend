@@ -5,7 +5,7 @@ import {
     UserForgetPwModel,
     editUserModel,
     obtainUserInfoModel,
-    sendGmailModel,
+    sendGmailModel, saveQuestionAnswerModel, updateQuestionAnswerModel, getQuestionAnswerModel, getQuestionAnswerModelByStudent, getQuestionAnswerModelById,
 } from '../models/UserModel';
 
 const nodemailer = require('nodemailer');
@@ -180,4 +180,62 @@ export class UserController {
         console.log('result');
         res.json([{ date: result }]);
     }
+
+    async saveQuestionAnswer(req: any, res: any, next: any) {
+        try {
+
+            const data = req.body;
+            const result = await saveQuestionAnswerModel(data)
+            console.log('saveQuestionAnswer--result', result)
+            res.json([{ code: 200, message: 'success', data: result }])
+        } catch (ex) {
+            console.log('error', ex);
+            res.json([{ code: 500, message: ex }]);
+        }
+    }
+
+    async updateQuestionAnswer(req: any, res: any, next: any) {
+        try {
+
+            const data = req.body;
+            await updateQuestionAnswerModel(data)
+
+            res.json([{ code: 200, message: 'success' }])
+        } catch (ex) {
+            console.log('error', ex);
+            res.json([{ code: 500, message: ex }]);
+        }
+    }
+
+    async getQuestionAnswer(req: any, res: any, next: any) {
+        try {
+            const rows = await getQuestionAnswerModel(req.query)
+            res.json([{ code: 200, message: 'success', data: rows }])
+        } catch (ex) {
+            console.log('error', ex);
+            res.json([{ code: 500, message: ex }]);
+        }
+    }
+
+    async getQuestionAnswerById(req: any, res: any, next: any) {
+        try {
+            const rows = await getQuestionAnswerModelById(req.params)
+            res.json([{ code: 200, message: 'success', data: rows }])
+        } catch (ex) {
+            console.log('error', ex);
+            res.json([{ code: 500, message: ex }]);
+        }
+    }
+
+    async getQuestionAnswerByStudent(req: any, res: any, next: any) {
+        try {
+            const rows = await getQuestionAnswerModelByStudent(req.query)
+            res.json([{ code: 200, message: 'success', data: rows }])
+        } catch (ex) {
+            console.log('error', ex);
+            res.json([{ code: 500, message: ex }]);
+        }
+    }
+
 }
+

@@ -72,6 +72,15 @@ router.post('/obtain_userId', obtain_userId_middleware_func, Message.obtain_user
 //老师根据userId获取 message   获取聊天记录接口
 router.post('/obtain_message', obtainMessage_middleware_func, Message.obtain_message);
 
+router.post('/teach/questionAnswer', obtainMessage_middleware_func, User.saveQuestionAnswer);
+router.put('/teach/questionAnswer', obtainMessage_middleware_func, User.updateQuestionAnswer);
+router.get('/teach/questionAnswer', obtainMessage_middleware_func, User.getQuestionAnswer);
+router.get('/teach/questionAnswer/:id', obtainMessage_middleware_func, User.getQuestionAnswerById);
+// 
+router.get('/student/questionAnswer', User.getQuestionAnswerByStudent);
+
+
+
 router.post('/formData', (req, res) => {
     //创建formidable表单解析对象
     const form = new formidable.IncomingForm();

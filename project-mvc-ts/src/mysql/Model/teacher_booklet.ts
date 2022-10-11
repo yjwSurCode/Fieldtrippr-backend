@@ -37,7 +37,7 @@ const Teacher_booklet = db.sequelizeRoot.define(
         },
         release_time: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
             comment: '发布时间',
         },
     },

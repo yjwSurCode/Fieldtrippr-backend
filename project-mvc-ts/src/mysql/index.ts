@@ -28,7 +28,7 @@ import ChatInfo from './Model/chat_info';
 // import Student_booklet from './Model/student_booklet';
 // import Student_bookshelf from './Model/student_bookshelf';
 // import Subjects from './Model/subjects';
-// import Teacher_booklet from './Model/teacher_booklet';
+import Teacher_booklet from './Model/teacher_booklet';
 // import Teacher_bookshelf from './Model/teacher_bookshelf';
 
 export {
@@ -44,6 +44,6 @@ export {
     // Student_booklet,
     // Student_bookshelf,
     // Subjects,
-    // Teacher_booklet,
+    Teacher_booklet,
     // Teacher_bookshelf,
 };

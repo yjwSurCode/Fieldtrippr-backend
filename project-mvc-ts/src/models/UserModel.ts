@@ -200,6 +200,67 @@ const editUserModel = (param: any) => {
     });
 };
 
+const saveQuestionAnswerModel = (data: any) => {
+    const { params, title = '', answer, question, image = '', video = '' } = data;
+    const { user_id } = params;
+
+    return db.sequelizeRoot.query(`insert into teacher_booklet
+        (title,sl_id,questions,answer,image,video)
+        values('${title}',${user_id}, '${question}','${answer}','${image}','${video}') `, {
+        type: db.sequelizeRoot.QueryTypes.INSERT,
+    }).then((res: any) => {
+
+        console.log('---res:', res);
+        return res[0];
+    })
+
+}
+
+
+const getQuestionAnswerModel = (params: any) => {
+    const { user_id } = params;
+    return new Promise((resolve, _) => {
+        let sql = `select * from teacher_booklet `
+        if (user_id) {
+            sql = `${sql} where sl_id = ${user_id}`
+        }
+        const res = db.sequelizeRoot.query(sql, { type: db.sequelizeRoot.QueryTypes.SELECT, });
+        resolve(res);
+    })
+}
+
+const getQuestionAnswerModelById = (params: any) => {
+    const { id } = params;
+    return new Promise((resolve, _) => {
+        let sql = `select * from teacher_booklet where id = ${id} `
+        const res = db.sequelizeRoot.query(sql, { type: db.sequelizeRoot.QueryTypes.SELECT, });
+        resolve(res);
+    })
+}
+
+const getQuestionAnswerModelByStudent = (params: any) => {
+    return new Promise((resolve, _) => {
+        let sql = `select * from teacher_booklet where release_time is not null `
+        const res = db.sequelizeRoot.query(sql, { type: db.sequelizeRoot.QueryTypes.SELECT, });
+        resolve(res);
+    })
+}
+
+
+
+const updateQuestionAnswerModel = (data: any) => {
+    const { params, id } = data;
+    const { user_id } = params;
+    return new Promise((resolve, _) => {
+        let sql = `update teacher_booklet set release_time = NOW() where sl_id= ${user_id} and id = ${id}`
+        const res = db.sequelizeRoot.query(sql, { type: db.sequelizeRoot.QueryTypes.UPDATE, });
+        resolve(res);
+    })
+}
+
+
+
+
 const obtainUserInfoModel = (param: any) => {
     return new Promise((resolve, _) => {
         const res = db.sequelizeRoot.query(`SELECT * FROM fuser where email='${param.email}'`, {
@@ -259,4 +320,9 @@ export {
     editUserModel,
     obtainUserInfoModel,
     sendGmailModel,
+    saveQuestionAnswerModel,
+    updateQuestionAnswerModel,
+    getQuestionAnswerModel,
+    getQuestionAnswerModelByStudent,
+    getQuestionAnswerModelById
 };

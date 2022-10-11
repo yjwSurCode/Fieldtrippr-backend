@@ -96,7 +96,7 @@ const obtainMessage_middleware_func = (req: any, res: any, next: any) => {
     // ... 进行一些操作
     const params = req.body;
     console.log('middleware...', params);
-    const { user_id } = params.params;
+    const { user_id } = params.params ||{};
 
     if (!user_id) {
         res.json([{ code: 415, message: '参数错误' }]);
