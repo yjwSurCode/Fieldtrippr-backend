@@ -249,11 +249,33 @@ const getQuestionAnswerModelByStudent = (params: any) => {
 
 
 const updateQuestionAnswerModel = (data: any) => {
-    const { params, id } = data;
-    const { user_id } = params;
+    const { params, id, description = '' } = data;
+    const { user_id, } = params;
     return new Promise((resolve, _) => {
-        let sql = `update teacher_booklet set release_time = NOW() where sl_id= ${user_id} and id = ${id}`
+        let sql = `update teacher_booklet set description='${description}', release_time = NOW() where sl_id= ${user_id} and id = ${id}`
         const res = db.sequelizeRoot.query(sql, { type: db.sequelizeRoot.QueryTypes.UPDATE, });
+        resolve(res);
+    })
+}
+const updateQuestionAnswerModelById = (data: any) => {
+    const { params, id, title = '', answer = '', questions = '', } = data;
+    const { user_id, } = params;
+    return new Promise((resolve, _) => {
+        let sql = `update teacher_booklet set title='${title}',answer='${answer}',
+        questions = '${questions}'
+        where sl_id= ${user_id} and id = ${id}`
+        const res = db.sequelizeRoot.query(sql, { type: db.sequelizeRoot.QueryTypes.UPDATE, });
+        resolve(res);
+    })
+}
+const deleteQuestionAnswerModelById = (data: any) => {
+
+    const { params, id } = data;
+    const { user_id, } = params;
+
+    return new Promise((resolve, _) => {
+        let sql = `delete FROM teacher_booklet where sl_id= ${user_id} and id = ${id}`
+        const res = db.sequelizeRoot.query(sql, { type: db.sequelizeRoot.QueryTypes.DELETE, });
         resolve(res);
     })
 }
@@ -324,5 +346,7 @@ export {
     updateQuestionAnswerModel,
     getQuestionAnswerModel,
     getQuestionAnswerModelByStudent,
-    getQuestionAnswerModelById
+    getQuestionAnswerModelById,
+    updateQuestionAnswerModelById,
+    deleteQuestionAnswerModelById,
 };

@@ -74,8 +74,10 @@ router.post('/obtain_message', obtainMessage_middleware_func, Message.obtain_mes
 
 router.post('/teach/questionAnswer', obtainMessage_middleware_func, User.saveQuestionAnswer);
 router.put('/teach/questionAnswer', obtainMessage_middleware_func, User.updateQuestionAnswer);
-router.get('/teach/questionAnswer', obtainMessage_middleware_func, User.getQuestionAnswer);
-router.get('/teach/questionAnswer/:id', obtainMessage_middleware_func, User.getQuestionAnswerById);
+router.put('/teach/questionAnswer/:id',obtainMessage_middleware_func, User.updateQuestionAnswerById);
+router.delete('/teach/questionAnswer/:id',obtainMessage_middleware_func, User.deleteQuestionAnswerById);
+router.get('/teach/questionAnswer', User.getQuestionAnswer);
+router.get('/teach/questionAnswer/:id', User.getQuestionAnswerById);
 // 
 router.get('/student/questionAnswer', User.getQuestionAnswerByStudent);
 

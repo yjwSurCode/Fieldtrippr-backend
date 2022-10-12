@@ -35,6 +35,11 @@ const Teacher_booklet = db.sequelizeRoot.define(
             allowNull: false,
             comment: '音视频',
         },
+        description: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            comment: '',
+        },
         release_time: {
             type: DataTypes.DATE,
             allowNull: true,

@@ -5,7 +5,7 @@ import {
     UserForgetPwModel,
     editUserModel,
     obtainUserInfoModel,
-    sendGmailModel, saveQuestionAnswerModel, updateQuestionAnswerModel, getQuestionAnswerModel, getQuestionAnswerModelByStudent, getQuestionAnswerModelById,
+    sendGmailModel, saveQuestionAnswerModel, updateQuestionAnswerModel, getQuestionAnswerModel, getQuestionAnswerModelByStudent, getQuestionAnswerModelById, updateQuestionAnswerModelById, deleteQuestionAnswerModelById,
 } from '../models/UserModel';
 
 const nodemailer = require('nodemailer');
@@ -196,16 +196,40 @@ export class UserController {
 
     async updateQuestionAnswer(req: any, res: any, next: any) {
         try {
-
             const data = req.body;
             await updateQuestionAnswerModel(data)
-
             res.json([{ code: 200, message: 'success' }])
         } catch (ex) {
             console.log('error', ex);
             res.json([{ code: 500, message: ex }]);
         }
     }
+
+    async updateQuestionAnswerById(req: any, res: any, next: any) {
+        try {
+            const data = req.body;
+            const { id } = req.params;
+
+            await updateQuestionAnswerModelById({ ...data, id })
+            res.json([{ code: 200, message: 'success' }])
+        } catch (ex) {
+            console.log('error', ex);
+            res.json([{ code: 500, message: ex }]);
+        }
+    }
+
+    async deleteQuestionAnswerById(req: any, res: any, next: any) {
+        try {
+            const data = req.body;
+            const { id } = req.params;
+            await deleteQuestionAnswerModelById({ ...data, id })
+            res.json([{ code: 200, message: 'success' }])
+        } catch (ex) {
+            console.log('error', ex);
+            res.json([{ code: 500, message: ex }]);
+        }
+    }
+
 
     async getQuestionAnswer(req: any, res: any, next: any) {
         try {
